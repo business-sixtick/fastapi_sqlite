@@ -13,8 +13,9 @@
 
 ## 우분투 파이썬 가상환경
 - sudo apt install python3-venv python3-pip
+- cd ~
 - python3 -m venv venv
-- source venv/bin/activate
+- source ~/venv/bin/activate
 
 ## remote ssh config 구성 (유저폴더에 .ssh\config 파일)
 ```
@@ -51,3 +52,8 @@ async def root():
 - 저장이 안되면 sudo apt install iptables-persistent 설치
 - cd /home/ubuntu/fastapi_sqlite/
 - uvicorn main:app --host 0.0.0.0 --port 80 --reload
+
+## 깃허브 
+- git config --global user.name "sixtick_sqlite"
+- git config --global user.email "business4dyd@gmail.com"
+- git config --list

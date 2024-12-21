@@ -1,0 +1,14 @@
+# 의존성
+# 묘듈명 == 버전 
+# pymysql
+# streamlit
+pandas
+# numpy  # 판다스에 포함됨됨
+sqlalchemy
+beautifulsoup4
+requests
+# openpyxl   # 엑셀
+# fastapi[all]
+# uvicorn[standard]
+
+# pip install -r requirements.txt
