@@ -68,7 +68,7 @@ async def root():
 
 ## 윈도우즈 가상환경
 - python -m venv venv
-- .\venv\Scripts\activate
+- .\venv\Scripts\activate   // 보안오류시 ttps://blog.naver.com/hungh4/223701757449  참조
 - python.exe -m pip install --upgrade pip
 - pip install fastapi[all]
 - pip install pandas
