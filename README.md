@@ -58,6 +58,7 @@ async def root():
 
 ## 깃허브 
 - git config --global user.name "sixtick_sqlite"
+- git config --global user.name "sixtick_lenovno"
 - git config --global user.email "business4dyd@gmail.com"
 - git config --list
 - pip install -r requirements.txt
