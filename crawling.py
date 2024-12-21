@@ -78,6 +78,7 @@ def getLottos(count : int = None) -> List[Lotto]:
     # 데이터 조회
     res : List[Lotto] = session.query(Lotto).all() if count == None else session.query(Lotto).order_by(Lotto.turn.desc()).limit(count).all()
     session.close()
+    refreshLotto()
     return res
 
 def crawlingLotto(num : int) -> Lotto:

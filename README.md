@@ -43,6 +43,7 @@ async def root():
 - uvicorn main:app --reload
 - uvicorn main:app --host 0.0.0.0 --port 80 --reload
 
+
 ## 루트 계정
 - sudo passwd root
 - su -
@@ -51,7 +52,9 @@ async def root():
 - sudo ip6tables-save | sudo tee /etc/iptables/rules.v6
 - 저장이 안되면 sudo apt install iptables-persistent 설치
 - cd /home/ubuntu/fastapi_sqlite/
+- source /home/ubuntu/venv/bin/activate
 - uvicorn main:app --host 0.0.0.0 --port 80 --reload
+- 80 포트로 쓰려면 루트 권한으로 실행해야함
 
 ## 깃허브 
 - git config --global user.name "sixtick_sqlite"

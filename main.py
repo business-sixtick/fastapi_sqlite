@@ -9,3 +9,8 @@ app = FastAPI()
 async def root():
     return {"message": "Hello World"}
 
+
+@app.get("/lotto")
+async def root():
+    lottos = crawling.getLottos(100)
+    return {"lottos": f"{lottos.count}"}
