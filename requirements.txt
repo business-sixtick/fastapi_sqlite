@@ -8,7 +8,7 @@ sqlalchemy
 beautifulsoup4
 requests
 # openpyxl   # 엑셀
-# fastapi[all]
+fastapi[all]
 # uvicorn[standard]
 
 # pip install -r requirements.txt

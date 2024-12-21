@@ -60,3 +60,19 @@ async def root():
 - git config --global user.name "sixtick_sqlite"
 - git config --global user.email "business4dyd@gmail.com"
 - git config --list
+- pip install -r requirements.txt
+
+
+
+
+## 윈도우즈 가상환경
+- python -m venv venv
+- .\venv\Scripts\activate
+- python.exe -m pip install --upgrade pip
+- pip install fastapi[all]
+- pip install pandas
+- pip install beautifulsoup4
+- pip install sqlalchemy
+- pip install requests
+- uvicorn main:app --reload
+

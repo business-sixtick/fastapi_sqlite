@@ -2,7 +2,8 @@ from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import date, datetime, timedelta, timezone
-from typing import List
+from typing import List, Optional
+from pydantic import BaseModel
 
 import requests
 from bs4 import BeautifulSoup
@@ -21,6 +22,33 @@ Base = declarative_base()
 # 세션 생성
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 session = SessionLocal()
+
+# Pydantic 모델 정의
+# class Lotto(BaseModel):
+#     turn: int
+#     date: int
+#     grade1count: int
+#     grade1money: int
+#     grade2count: int
+#     grade2money: int
+#     grade3count: int
+#     grade3money: int
+#     grade4count: int
+#     grade4money: int
+#     grade5count: int
+#     grade5money: int
+#     win1: int
+#     win2: int
+#     win3: int
+#     win4: int
+#     win5: int
+#     win6: int
+#     win7: int
+#     note: Optional[str] = None  # 비고는 Optional로 정의
+
+#     class Config:
+#         orm_mode = True  # SQLAlchemy 모델을 pydantic 모델로 변환할 수 있도록 설정
+
 
 # 모델 정의
 class Lotto(Base):
@@ -45,6 +73,30 @@ class Lotto(Base):
     win6 = Column(Integer) # 당첨번호 여섯번째
     win7 = Column(Integer) # 당첨번호 보너스
     note = Column(String)   # 비고
+
+def toJsonLotto(lotto : Lotto):
+    return {
+        "turn": lotto.turn,
+        "date": lotto.turn,
+        "grade1count": lotto.grade1count,
+        "grade1money": lotto.grade1money,
+        "grade2count": lotto.grade2count,
+        "grade2money": lotto.grade2money,
+        "grade3count": lotto.grade3count,
+        "grade3money": lotto.grade3money,
+        "grade4count": lotto.grade4count,
+        "grade4money": lotto.grade4money,
+        "grade5count": lotto.grade5count,
+        "grade5money": lotto.grade5money,
+        "win1": lotto.win1,
+        "win2": lotto.win2,
+        "win3": lotto.win3,
+        "win4": lotto.win4,
+        "win5": lotto.win5,
+        "win6": lotto.win6,
+        "win7": lotto.win7,
+        "note": lotto.note,
+        }
 
 def insertLotto(lotto : Lotto):
     # 세션에 추가
@@ -76,6 +128,7 @@ def getLottos(count : int = None) -> List[Lotto]:
     # SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     # session = SessionLocal()
     # 데이터 조회
+    print(f'getLottos {count}')
     res : List[Lotto] = session.query(Lotto).all() if count == None else session.query(Lotto).order_by(Lotto.turn.desc()).limit(count).all()
     session.close()
     refreshLotto()
