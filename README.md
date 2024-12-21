@@ -1,10 +1,53 @@
 # fastapi_sqlite
 파이썬 fastapi 서버에 sqlite를 구동한다.
 
+## 오라클 클라우드 (sqlite 데이터베이스)
+- https://cloud.oracle.com/
+- 가용성 도메인: AD-1 항상 무료 적격
+- Ubuntu 24.04
+- VM.Standard.E2.1.Micro 가상 머신, 1 core OCPU, 1 GB memory, 0.48 Gbps network bandwidth, Processor: 2.0 GHz AMD EPYC™ 7551 (Naples)
+- ㅋㅋ 거의뭐 쓰레기급이네 
+- ssh ubuntu@144.24.78.242
+- ssh -i C:\Users\sixtick3\.ssh\ssh-key-2024-12-21.key ubuntu@144.24.78.242
+- sudo apt update
 
-## remote ssh config 구성
+## 우분투 파이썬 가상환경
+- sudo apt install python3-venv python3-pip
+- python3 -m venv venv
+- source venv/bin/activate
+
+## remote ssh config 구성 (유저폴더에 .ssh\config 파일)
+```
 Host sqlite
   HostName 144.24.78.242
   User ubuntu
   IdentityFile ~/.ssh/ssh-key-2024-12-21.key
   IdentitiesOnly yes
+```
+
+## fastapi sqlite 구성 https://fastapi.tiangolo.com/ko/
+- pip install fastapi[all]
+- main.py 작성
+```
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+```
+
+- uvicorn main:app --reload
+- uvicorn main:app --host 0.0.0.0 --port 80 --reload
+
+## 루트 계정
+- sudo passwd root
+- su -
+- sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
+- sudo iptables-save | sudo tee /etc/iptables/rules.v4
+- sudo ip6tables-save | sudo tee /etc/iptables/rules.v6
+- 저장이 안되면 sudo apt install iptables-persistent 설치
+- cd /home/ubuntu/fastapi_sqlite/
+- uvicorn main:app --host 0.0.0.0 --port 80 --reload
