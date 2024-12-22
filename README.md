@@ -9,6 +9,7 @@
 - ㅋㅋ 거의뭐 쓰레기급이네 
 - ssh ubuntu@144.24.78.242
 - ssh -i C:\Users\sixtick3\.ssh\ssh-key-2024-12-21.key ubuntu@144.24.78.242
+- ssh -i C:\Users\hungh\.ssh\ssh-key-2024-12-21.key ubuntu@144.24.78.242
 - sudo apt update
 
 ## 우분투 파이썬 가상환경
@@ -55,6 +56,8 @@ async def root():
 - source /home/ubuntu/venv/bin/activate
 - uvicorn main:app --host 0.0.0.0 --port 80 --reload
 - 80 포트로 쓰려면 루트 권한으로 실행해야함
+- nohup uvicorn main:app --host 0.0.0.0 --port 80 --reload > /home/ubuntu/uvicorn.log 2>&1 &
+
 
 ## 깃허브 
 - git config --global user.name "sixtick_sqlite"
