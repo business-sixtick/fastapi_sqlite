@@ -81,3 +81,25 @@ async def root():
 - uvicorn main:app --reload
 - http://127.0.0.1:8000/lotto?length=10
 
+
+
+## 우분투 로그파일 관리
+
+/home/ubuntu/uvicorn.log {
+    daily            
+    rotate 7         
+    missingok
+    create 666 root adm
+}
+sudo nano /etc/logrotate.d/uvicorn
+sudo logrotate -f /etc/logrotate.d/uvicorn  # 강제 실행
+
+/var/log/syslog {
+    daily            # 로그 회전 주기 (매일)
+    rotate 7         # 7일치 로그 보관
+    compress         # 압축 (gzip 사용)
+    delaycompress    # 바로 압축하지 않고 하루 뒤에 압축
+    missingok        # 로그 파일 없어도 에러 무시
+    notifempty       # 비어 있으면 회전 생략
+    create 640 root adm  # 새 로그 파일 권한 설정
+}
