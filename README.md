@@ -103,3 +103,47 @@ sudo logrotate -f /etc/logrotate.d/uvicorn  # 강제 실행
     notifempty       # 비어 있으면 회전 생략
     create 640 root adm  # 새 로그 파일 권한 설정
 }
+
+
+
+## SSL/TLS 인증서 발급  http://lottoapi.duckdns.org  http://144.24.78.242/
+
+- sudo apt update
+- sudo apt install certbot python3-certbot-nginx nginx
+- sudo nano /etc/nginx/sites-available/fastapi   (nginx 설정정)
+```
+server {
+    listen 80;
+    server_name 144.24.78.242 lottoapi.duckdns.org; # 도메인 설정 (IP 주소도 가능)
+
+    location / {
+        proxy_pass http://127.0.0.1:8000; # FastAPI 서버 주소
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # 정적 파일 제공 (옵션)
+    location /static/ {
+        alias /var/www/fastapi/static/;
+    }
+}
+```
+- nohup uvicorn main:app --host 0.0.0.0 --port 8000 --reload > /home/ubuntu/uvicorn.log 2>&1 &
+- nohup uvicorn main:app --host 0.0.0.0 --port 80 --reload > /home/ubuntu/uvicorn.log 2>&1 &
+
+- sudo ln -s /etc/nginx/sites-available/fastapi /etc/nginx/sites-enabled/
+- sudo nginx -t  # 설정 파일 테스트
+- sudo systemctl reload nginx  (또는 start)
+
+- sudo iptables -I INPUT 1 -p tcp --dport 443 -j ACCEPT
+- sudo iptables-save | sudo tee /etc/iptables/rules.v4
+- sudo ip6tables-save | sudo tee /etc/iptables/rules.v6
+
+- sudo certbot   (duckdns.org lottoapi.duckdns.org) business4dyd@gmail.com
+
+- 자동갱신 설정 (나중에 다시 확인 해보자자)
+- sudo certbot renew --dry-run
+- sudo crontab -e
+- 0 2 * * * certbot renew --quiet

@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import FastAPI, Query
 # from crawling import *  # 네임 스페이스 없이 접근함
 import crawling # 네임스페이스로 접근해야함
@@ -33,3 +34,6 @@ async def root(length: int = Query(100, description="로또 번호 개수")):
     # return 
 
 
+# 직접 기동시 nginx 없이 https 가 가능하다다
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=443, ssl_keyfile="/etc/letsencrypt/live/lottoapi.duckdns.org/privkey.pem", ssl_certfile="/etc/letsencrypt/live/lottoapi.duckdns.org/fullchain.pem")
