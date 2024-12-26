@@ -77,7 +77,7 @@ class Lotto(Base):
 def toJsonLotto(lotto : Lotto):
     return {
         "turn": lotto.turn,
-        "date": lotto.turn,
+        "date": lotto.date,
         "grade1count": lotto.grade1count,
         "grade1money": lotto.grade1money,
         "grade2count": lotto.grade2count,
