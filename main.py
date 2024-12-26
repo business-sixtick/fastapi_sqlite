@@ -3,9 +3,18 @@ from fastapi import FastAPI, Query
 import crawling # 네임스페이스로 접근해야함
 # from pydantic import BaseModel
 from datetime import datetime
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+# CORS 설정
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 모든 도메인에서 요청 허용 (개발 환경에서는 "*"을 사용)
+    allow_credentials=True,
+    allow_methods=["*"],  # 모든 HTTP 메서드 허용 (GET, POST, PUT, DELETE 등)
+    allow_headers=["*"],  # 모든 헤더 허용
+)
 
 @app.get("/")
 async def root():
