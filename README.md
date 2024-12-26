@@ -79,4 +79,5 @@ async def root():
 - pip install sqlalchemy
 - pip install requests
 - uvicorn main:app --reload
+- http://127.0.0.1:8000/lotto?length=10
 
