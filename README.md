@@ -147,3 +147,6 @@ server {
 - sudo certbot renew --dry-run
 - sudo crontab -e
 - 0 2 * * * certbot renew --quiet
+
+
+- 인증서 확인 sudo certbot certificates
